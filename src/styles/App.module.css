@@ -1,9 +1,7 @@
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6rem;
+  display: grid;
+  align-content: center;
+  padding: 4rem;
   min-height: 100vh;
 }
 

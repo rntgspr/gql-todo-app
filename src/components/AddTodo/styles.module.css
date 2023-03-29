@@ -1,0 +1,36 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  padding: 2rem 0;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.label span {
+  display: block;
+  min-width: 12rem;
+}
+
+.label input[type="text"], .label textarea {
+  min-width:  12rem;
+  padding: 0.25rem;
+}
+
+.label textarea {
+  height: 5rem;
+}
