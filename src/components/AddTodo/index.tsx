@@ -5,6 +5,11 @@ import useTodo from "/src/hooks/useTodo";
 
 import styles from "./styles.module.css";
 
+/**
+ * @madeByAi
+ * Component for adding new todos
+ * @component
+ */
 const AddTodo = () => {
   const { refetch } = useList();
   const [csrf, setCSRF] = useState<string>((Math.random() * 2e8).toString());

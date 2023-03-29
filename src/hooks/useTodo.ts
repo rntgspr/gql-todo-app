@@ -36,9 +36,16 @@ const DONE_TODO = gql`
 `;
 
 /**
- *
- * @param id
- * @returns
+ * @madeByAi
+ * A custom hook for managing a single Todo item, including its query, mutation and deletion.
+ * @function useTodo
+ * @param {string} [id] - An optional ID for the Todo item.
+ * @returns {{
+ *   todo: Todo,
+ *   addTodo: (title: string, description: string) => Promise<void>,
+ *   deleteTodo: (id: string) => Promise<void>,
+ *   doneTodo: (id: string, done: boolean) => Promise<void>,
+ * }}
  */
 const useTodo = (id?: string) => {
   const { data, loading, refetch } = useQuery<{ todo: Todo }>(GET_TODO, {
@@ -48,12 +55,35 @@ const useTodo = (id?: string) => {
   const [deleteMutation] = useMutation(DELETE_TODO);
   const [doneMutation] = useMutation(DONE_TODO);
 
+  /**
+   * Adds a new Todo item with the specified title and description.
+   * @function addTodo
+   * @async
+   * @param {string} title - The title of the new Todo item.
+   * @param {string} description - The description of the new Todo item.
+   * @returns {Promise<void>}
+   */
   const addTodo = async (title: string, description: string) =>
     addMutation({ variables: { title, description } });
 
+  /**
+   * Deletes the Todo item with the specified ID.
+   * @function deleteTodo
+   * @async
+   * @param {string} id - The ID of the Todo item to delete.
+   * @returns {Promise<void>}
+   */
   const deleteTodo = async (id: string) =>
     deleteMutation({ variables: { id } });
 
+  /**
+   * Modifies the Todo item with the specified ID.
+   * @function deleteTodo
+   * @async
+   * @param {string} id - The ID of the Todo item to modify.
+   * @param {boolean} done - The state of the current todo item.
+   * @returns {Promise<void>}
+   */
   const doneTodo = async (id: string, done: boolean) =>
     doneMutation({ variables: { id, done } });
 

@@ -1,5 +1,8 @@
 import { gql } from "graphql-tag";
 
+/**
+ * GraphQL type definition
+ */
 const typeDefs = gql`
   # Todo
   type Todo {

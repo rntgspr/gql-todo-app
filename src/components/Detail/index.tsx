@@ -8,6 +8,12 @@ interface Props {
   uuid: string;
 }
 
+/**
+ * @madeByAi
+ * Detail functional component displays details of a todo item and provides a link to go back.
+ * @param {Props} props - Props for Detail component.
+ * @returns {JSX.Element} A JSX Element that displays the details of a todo item and a link to go back.
+ */
 const Detail: React.FC<Props> = ({ uuid }) => {
   const { todo } = useTodo(uuid);
   return (

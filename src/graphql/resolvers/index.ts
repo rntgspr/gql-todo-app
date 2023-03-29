@@ -6,6 +6,9 @@ import addTodo from "./addTodo";
 import doneTodo from "./doneTodo";
 import deleteTodo from "./deleteTodo";
 
+/**
+ * GraphQL resolvers
+ */
 const resolver = {
   /** Queries */
   Query: {
