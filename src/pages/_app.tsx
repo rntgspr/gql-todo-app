@@ -1,4 +1,4 @@
-import "/src/styles/reset.module.css";
+import "/src/styles/reset.css";
 import "/src/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Inter } from "next/font/google";
