@@ -1,56 +1,79 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
 
 import useList from "/src/hooks/useList";
 import useTodo from "/src/hooks/useTodo";
+import ListItem from "/src/components/ListItem";
+import SearchTodo from "/src/components/SearchTodo";
 
-import styles from "./styles.module.css";
+import styles from "./styles.module.scss";
 
 /**
- * @madeByAi
- * List component renders a list of todo items and provides functionality to remove them.
- * @returns {JSX.Element} React component with a list of todo items.
+ * List component renders a list of todo items and provides functionality to
+ * remove, complete and search them.
+ * @returns component render;
  */
 const List = () => {
+  const [query, setQuery] = useState<string>("");
   const { list, loading, refetch } = useList();
-  const { deleteTodo, doneTodo } = useTodo();
 
-  const clickDeleteHandler = useCallback(
-    (id: string) => async () => {
-      await deleteTodo(id);
-      await refetch();
+  const searchHandler = useCallback(
+    async (query: string) => {
+      await refetch({ query });
+      setQuery(query);
     },
-    [deleteTodo, refetch]
+    [refetch]
   );
 
-  const clickDoneHandler = useCallback(
-    (id: string, done: boolean) => async () => {
-      await doneTodo(id, done);
-      await refetch();
-    },
-    [doneTodo, refetch]
-  );
+  const undoneList = useMemo(() => list.filter((item) => !item.done), [list]);
+  const doneList = useMemo(() => list.filter((item) => item.done), [list]);
+
+  const emptyMessage = useMemo(() => {
+    if (query && list.length === 0) {
+      return "No results found";
+    }
+
+    if (list.length === 0) {
+      return "List is empty, ready to add new items";
+    }
+
+    if (undoneList.length === 0) {
+      return "Everything done!";
+    }
+
+    return null;
+  }, [list, undoneList, query]);
 
   return (
     <div className={styles.wrapper}>
+      <SearchTodo onUpdate={searchHandler} />
       {loading ? (
         <div>Loading...</div>
-      ) : list.length > 0 ? (
-        <ul className={styles.list}>
-          {list.map((item) => (
-            <li key={item.id} className={styles.item}>
-              <button onClick={clickDoneHandler(item.id, !item.done)}>
-                {item.done ? "✔" : "⭕"}
-              </button>
-              <Link href={`/todo/${item.id}`}>
-                <h2>{item.title}</h2>
-              </Link>
-              <button onClick={clickDeleteHandler(item.id)}>⨉</button>
-            </li>
-          ))}
-        </ul>
       ) : (
-        <div>Quite empty, add a new todo to start!</div>
+        <>
+          {emptyMessage ? (
+            <div className={styles.message}>{emptyMessage}</div>
+          ) : null}
+          {list.length > 0 ? (
+            <>
+              <ul className={styles.list}>
+                {undoneList.length > 0
+                  ? undoneList.map((item) => (
+                      <ListItem key={item.id} item={item} />
+                    ))
+                  : null}
+                {doneList.length > 0
+                  ? doneList.map((item) => (
+                      <ListItem key={item.id} item={item} />
+                    ))
+                  : null}
+              </ul>
+              <div className={styles.message}>
+                {`${undoneList.length}/${list.length} item completed`}
+              </div>
+            </>
+          ) : null}
+        </>
       )}
     </div>
   );

@@ -1,0 +1,86 @@
+@import "/src/styles/variables.module.scss";
+@import "/src/styles/reset.scss";
+
+:root {
+  --bg-gradient-0: #{$colorEggshell};
+  --bg-gradient-1: #{$colorTimberwolf};
+  --bg-gradient-2: #{$colorIsabelline};
+
+  --background-color: #{$colorMelon};
+  --text-color: #{$colorChestnut};
+  --field-background: #{$colorPaleDogwood};
+  --field-border: #{$colorMelon};
+  --button-background: #{$colorJasper};
+  --button-background-hover: #{$colorSienna};
+  --button-text: #{$colorWhite};
+  --shadow-color: #{$colorRosyBrown};
+  --title-color: #{$colorRosyBrown};
+  --list-contrast: rgba(0, 0, 0, 0.037);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-gradient-0: #{$colorPennBlue};
+    --bg-gradient-1: #{$colorRichBlack};
+    --bg-gradient-2: #{$colorOxfordBlue};
+
+    --background-color: #{$colorOxfordBlue};
+    --text-color: #{$colorJordyBlue};
+    --field-background: #{$colorPennBlue};
+    --field-border: #{$colorAzure};
+    --button-background: #{$colorPhlox};
+    --button-background-hover: #{$colorHeliotrope};
+    --button-text: #{$colorWhite};
+    --shadow-color: #{$colorPennBlue};
+    --title-color: #{$colorJordyBlue};
+    --list-contrast: rgba(255, 255, 255, 0.037);
+  }
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased; /* Chrome, Safari */
+  -moz-osx-font-smoothing: grayscale; /* Firefox */
+}
+
+body {
+  color: var(--text-color);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  position: relative;
+}
+
+input,
+textarea,
+select {
+  appearance: none;
+  resize: none;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+h2 {
+  font-size: 1.75rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+@import "/src/styles/general.scss";

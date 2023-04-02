@@ -11,8 +11,10 @@ export default function Home() {
         <title>This is your Todo&apos;s</title>
       </Head>
       <>
-        <AddTodo />
-        <List />
+        <section className="seciton">
+          <AddTodo />
+          <List />
+        </section>
       </>
     </>
   );

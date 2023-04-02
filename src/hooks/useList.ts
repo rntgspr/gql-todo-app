@@ -1,8 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 
 const GET_TODOS = gql`
-  query GetTodos {
-    todos {
+  query GetTodos($query: String) {
+    todos(query: $query) {
       id
       title
       description
@@ -19,7 +19,8 @@ const GET_TODOS = gql`
  */
 const useList = () => {
   const { loading, error, data, refetch } = useQuery<{ todos: Todo[] }>(
-    GET_TODOS
+    GET_TODOS,
+    { variables: { query: "" } }
   );
 
   return {

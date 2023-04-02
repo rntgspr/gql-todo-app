@@ -15,7 +15,7 @@ const typeDefs = gql`
 
   # General query
   type Query {
-    todos: [Todo]!
+    todos(query: String): [Todo]!
     todo(id: ID!): Todo
   }
 

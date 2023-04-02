@@ -1,0 +1,32 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  z-index: 1;
+}
+
+.field {
+  width: 28rem;
+  flex-grow: 1;
+}
+
+.clearButton {
+  cursor: pointer;
+  padding: 0rem;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+  border-radius: 50%;
+  text-align: center;
+  transition: background-color 0.13s ease;
+  font-weight: 900;
+
+  &:disabled {
+    cursor: default;
+    background-color: var(--background-color);
+    opacity: 0.33;
+  }
+}

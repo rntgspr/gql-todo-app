@@ -1,0 +1,112 @@
+@import "/src/styles/variables.module.scss";
+
+@keyframes gradient {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
+}
+
+.body-background {
+  background: linear-gradient(
+    -37deg,
+    var(--bg-gradient-0),
+    var(--bg-gradient-1),
+    var(--bg-gradient-2)
+  );
+  background-size: 333vw 333vh;
+  animation: gradient 37s alternate infinite linear;
+}
+
+.main {
+  display: grid;
+  place-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.seciton {
+  width: 42rem;
+  max-height: 66vh;
+}
+
+.input,
+.textarea {
+  border: 1px solid var(--field-border);
+  background-color: var(--field-background);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  transition: box-shadow 0.13s ease;
+
+  &:focus {
+    border: 1px solid var(--text-color);
+    box-shadow: 0 0.25rem 0.75rem var(--shadow-color);
+  }
+
+  &::placeholder {
+    color: var(--field-border);
+    opacity: 1;
+  }
+}
+
+.button {
+  position: relative;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid transparent;
+  background-color: var(--button-background);
+  color: var(--button-text);
+  font-size: 1.25rem;
+  font-weight: 500;
+  transform-origin: center;
+  transform: scale(1);
+
+  &:active {
+    transform: scale(0.97);
+    &:hover {
+      background-color: var(--button-background);
+    }
+  }
+
+  &:hover {
+    background-color: var(--button-background-hover);
+  }
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.77);
+  z-index: 99999;
+}
+
+.card {
+  position: relative;
+  padding: 2rem 2.5rem;
+  border-radius: 1rem;
+  background-color: var(--background-color);
+  border: 1px solid var(--field-background);
+  overflow: hidden;
+  box-shadow: 0 0.25rem 0.75rem var(--shadow-color);
+}
+
+.title {
+  color: var(--button-background);
+  line-height: 1em;
+  // padding-bottom: 1em;
+
+  &.main-title {
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}

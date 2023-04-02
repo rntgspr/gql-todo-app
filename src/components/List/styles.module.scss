@@ -1,0 +1,22 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.list {
+  display: flex;
+  width: 86%;
+  max-height: 44vh;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 1rem;
+  overflow-x: auto;
+  list-style: none;
+}
+
+.message {
+  padding: 1rem;
+}

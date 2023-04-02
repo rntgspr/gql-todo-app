@@ -1,0 +1,96 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 2rem auto 2rem;
+  gap: 1rem;
+  padding: 0.5rem;
+
+  &:nth-child(2n + 1) {
+    background-color: var(--list-contrast);
+  }
+}
+
+.wrapperDone {
+  margin-top: 1.5rem;
+  padding-top: 0.5rem;
+  border-top: 2px solid var(--button-background);
+  text-decoration: line-through;
+
+  & ~ .wrapperDone {
+    margin-top: 0;
+    border-top: none;
+  }
+
+  &:first-child {
+    border-top: none;
+  }
+}
+
+.button {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border: 2px solid transparent;
+  overflow: hidden;
+  border-radius: 50%;
+  color: var(--text-color);
+
+  &:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+}
+
+.buttonDone {
+  @extend .button;
+  border-color: var(--button-background);
+
+  &:after {
+    content: "";
+    font-size: 2rem;
+    transform: translate(-0.63rem, -1.35rem);
+  }
+
+  &:hover {
+    border-color: var(--button-background-hover);
+  }
+
+  &.buttonDoneChecked {
+    border-color: transparent;
+    background: var(--field-background);
+
+    &:after {
+      content: "✔";
+      font-size: 1.4rem;
+      transform: translate(-0.55rem, -1rem);
+    }
+  }
+}
+
+.buttonDelete {
+  @extend .button;
+  border: none;
+  font-size: 2rem;
+
+  &:after {
+    content: "⨉";
+    position: absolute;
+    transform: translate(-0.8rem, -1.2rem);
+  }
+
+  &:hover:after {
+    color: var(--button-background);
+  }
+}
+
+.itemLink {
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    color: var(--button-background-hover);
+  }
+}
