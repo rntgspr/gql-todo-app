@@ -3,7 +3,6 @@ import { createClient } from "redis";
 const client = createClient({
   url: process.env.REDIS_URL,
 });
-client.connect();
 client.on("error", (err) => console.log("Redis Client Error", err));
 
 /**
@@ -11,9 +10,11 @@ client.on("error", (err) => console.log("Redis Client Error", err));
  * @param callback given callback function
  * @returns such given callback;
  */
-const withConnection = async (callback: any) => {
-  if (!client.isOpen) await client.connect();
-  return callback;
+const withConnection = async (callback?: any) => {
+  if (!client.isOpen) {
+    await client.connect();
+  }
+  return callback ? callback() : null;
 };
 
 /**
@@ -23,7 +24,9 @@ const withConnection = async (callback: any) => {
  * @returns void;
  */
 export const setItem = async (key: string, item: any): Promise<void> => {
-  await withConnection(client.set(key, JSON.stringify(item)));
+  await withConnection();
+  await client.set(key, JSON.stringify(item));
+  await client.disconnect();
   return void 0;
 };
 
@@ -33,7 +36,9 @@ export const setItem = async (key: string, item: any): Promise<void> => {
  * @returns item object;
  */
 export const getItem = async <T>(key: string): Promise<T> => {
-  const result = await withConnection(client.get(key));
+  await withConnection();
+  const result = await client.get(key);
+  await client.disconnect();
   const output = JSON.parse(result ?? "null");
   return output;
 };
@@ -43,5 +48,9 @@ export const getItem = async <T>(key: string): Promise<T> => {
  * @param key given item key;
  * @returns void;
  */
-export const delItem = async (key: string): Promise<void> =>
-  withConnection(client.del(key));
+export const delItem = async (key: string): Promise<void> => {
+  await withConnection();
+  await client.del(key);
+  await client.disconnect();
+  return void 0;
+};

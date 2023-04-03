@@ -5,6 +5,7 @@ import useList from "/src/hooks/useList";
 import useTodo from "/src/hooks/useTodo";
 import ListItem from "/src/components/ListItem";
 import SearchTodo from "/src/components/SearchTodo";
+import testTag from "/src/utils/testTag";
 
 import styles from "./styles.module.scss";
 
@@ -45,14 +46,19 @@ const List = () => {
   }, [list, undoneList, query]);
 
   return (
-    <div className={styles.wrapper}>
+    <div data-test-tag={testTag`TodoList`} className={styles.wrapper}>
       <SearchTodo onUpdate={searchHandler} />
       {loading ? (
         <div>Loading...</div>
       ) : (
         <>
           {emptyMessage ? (
-            <div className={styles.message}>{emptyMessage}</div>
+            <div
+              data-test-tag={testTag`TodoList-Message`}
+              className={styles.message}
+            >
+              {emptyMessage}
+            </div>
           ) : null}
           {list.length > 0 ? (
             <>
@@ -68,8 +74,11 @@ const List = () => {
                     ))
                   : null}
               </ul>
-              <div className={styles.message}>
-                {`${undoneList.length}/${list.length} item completed`}
+              <div
+                data-test-tag={testTag`TodoList-Message-Completed`}
+                className={styles.message}
+              >
+                {`${doneList.length}/${list.length} completed`}
               </div>
             </>
           ) : null}

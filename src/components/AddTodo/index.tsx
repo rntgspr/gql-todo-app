@@ -3,6 +3,7 @@ import { useCallback, useState, useRef } from "react";
 
 import useList from "/src/hooks/useList";
 import useTodo from "/src/hooks/useTodo";
+import testTag from "/src/utils/testTag";
 
 import styles from "./styles.module.scss";
 
@@ -65,17 +66,21 @@ const AddTodo = () => {
   );
 
   return (
-    <div className={styles.wrapper}>
-      <h1 className="title main-title">Todo list</h1>
+    <div data-test-tag={testTag`AddTodo`} className={styles.wrapper}>
+      <h1 className="title main-title">todo list</h1>
       {!open ? (
-        <button className="button" onClick={clickNewTaskHandler}>
+        <button
+          data-test-tag={testTag`AddTodo-NewTask`}
+          className="button"
+          onClick={clickNewTaskHandler}
+        >
           New Task
         </button>
       ) : (
         <div onClick={clickBackdropHandler} className="backdrop">
           <div className={jn("card", styles.card)}>
             <h2 className={jn("title", styles.title)}>Add a new Todo:</h2>
-            <form key={csrf} className={styles.form} onSubmit={onSubmitHandler}>
+            <form data-test-tag={testTag`AddTodo-Form`} key={csrf} className={styles.form} onSubmit={onSubmitHandler}>
               <input
                 ref={title}
                 type="text"
@@ -83,6 +88,7 @@ const AddTodo = () => {
                 className={jn("input", styles.titleField)}
               />
               <textarea
+                data-test-tag={testTag`AddTodo-DescriptionField`}
                 ref={description}
                 data-enable-grammarly="false"
                 placeholder="description"

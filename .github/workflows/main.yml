@@ -1,0 +1,32 @@
+name: End-to-end tests
+on: push
+jobs:
+  testing-run:
+    runs-on: ubuntu-22.04
+    services:
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.17.1'
+      - name: Install modules
+        run: npm install
+      - name: Jest Unit Tests
+        run: npm run jest
+      - name: Cypress run components
+        uses: cypress-io/github-action@v5
+        with:
+          component: true
+          build: npm run build
+      - name: Cypress run e2e
+        uses: cypress-io/github-action@v5
+        with:
+          component: false
+          build: npm run build
+          start: npm run dev
+          wait-on: http://localhost:3000

@@ -50,6 +50,7 @@ const DONE_TODO = gql`
 const useTodo = (id?: string) => {
   const { data, loading, refetch } = useQuery<{ todo: Todo }>(GET_TODO, {
     variables: { id },
+    skip: !id,
   });
   const [addMutation] = useMutation(ADD_TODO);
   const [deleteMutation] = useMutation(DELETE_TODO);

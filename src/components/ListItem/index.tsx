@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import useTodo from "/src/hooks/useTodo";
 import useList from "/src/hooks/useList";
+import testTag from "/src/utils/testTag";
 
 import styles from "./styles.module.scss";
 
@@ -37,8 +38,13 @@ const ListItem: React.FC<Props> = ({ item }) => {
   );
 
   return (
-    <li className={jn(styles.wrapper, !!item.done && styles.wrapperDone)}>
+    <li
+      data-test-tag={testTag`ListItem-${item.id}`}
+      data-cy={testTag`isDone-${item.done.toString()}`}
+      className={jn(styles.wrapper, !!item.done && styles.wrapperDone)}
+    >
       <button
+        data-test-tag={testTag`ListItem-${item.id}-Done`}
         className={jn(
           styles.button,
           styles.buttonDone,
@@ -46,10 +52,15 @@ const ListItem: React.FC<Props> = ({ item }) => {
         )}
         onClick={clickDoneHandler(item.id, !item.done)}
       />
-      <Link className={styles.itemLink} href={`/todo/${item.id}`}>
+      <Link
+        data-test-tag={testTag`ListItem-${item.id}-Link`}
+        className={styles.itemLink}
+        href={`/todo/${item.id}`}
+      >
         {item.title}
       </Link>
       <button
+        data-test-tag={testTag`ListItem-${item.id}-Delete`}
         className={styles.buttonDelete}
         onClick={clickDeleteHandler(item.id)}
       />

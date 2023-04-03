@@ -8,6 +8,7 @@ import {
 } from "react";
 
 import useList from "/src/hooks/useList";
+import testTag from "/src/utils/testTag";
 
 import styles from "./styles.module.scss";
 
@@ -61,12 +62,14 @@ const SearchTodo: React.FC<Props> = ({ onUpdate }) => {
   return (
     <div className={styles.wrapper}>
       <input
+        data-test-tag={testTag`SearchTodo-Field`}
         className={jn("input", styles.field)}
         value={query}
         onChange={changeHandler}
         placeholder="search"
       />
       <button
+        data-test-tag={testTag`SearchTodo-Clear`}
         className={jn("button", styles.clearButton)}
         onClick={clickClearHandler}
         disabled={!query}
